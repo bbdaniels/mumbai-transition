@@ -85,12 +85,13 @@ use "${directory}/constructed/sp-private.dta" ///
     if case < 7 & ppsa_notifications != ., clear
   tw ///
     (scatter ppsa_notifications ppsa_cutoff if ppia_facility_2 == 1 , mc(black)) ///
+    (scatter ppsa_notifications ppsa_cutoff if ppia_facility_2 == 1 & (ppsa_provider_category == "A" | ppsa_provider_category == "B"), mc(green)) ///
     (scatter ppsa_notifications ppsa_cutoff if ppia_facility_2 == 0 , mc(red)) ///
     , xline(65 80 95) ytit("") ///
       title("Monthly Notifications and PPSA Transition Eligibility" , ${title}) ///
       xtit("PPSA Eligibility Score Cutoff" ) ///
       xlab(0(20)100 80 "  {&larr} In 80 Out {&rarr}") ///
-      legend(on order(1 "Included in PPSA" 2 "Removed at Transition"))
+      legend(on order(2 "PPSA A/B List" 1 "Included in PPSA" 3 "Removed at Transition"))
 
       graph export "${directory}/outputs/ppsa-eligibility.eps" , replace
 
@@ -123,10 +124,10 @@ use "${directory}/constructed/sp-private.dta" ///
 
     tw ///
       (histogram ppsa_notifications , fc(gs14) lc(gs14) yaxis(2)) ///
-      (lowess re_4 ppsa_notifications if wave == 1 & case == 1 ) ///
-      (lowess re_4 ppsa_notifications if wave == 1 & case == 2 ) ///
-      (lowess re_4 ppsa_notifications if wave == 1 & case == 3 ) ///
-      (lowess re_4 ppsa_notifications if wave == 1 & case == 4 ) ///
+      (lowess re_4 ppsa_notifications if wave == 1 & case == 1 , lw(thick)) ///
+      (lowess re_4 ppsa_notifications if wave == 1 & case == 2 , lw(thick)) ///
+      (lowess re_4 ppsa_notifications if wave == 1 & case == 3 , lw(thick)) ///
+      (lowess re_4 ppsa_notifications if wave == 1 & case == 4 , lw(thick)) ///
     , legend(on order (2 "Case 1" 3 "Case 2" 4 "Case 3" 5 "Case 4") ring(0) pos(5) c(1)) ///
       ylab(${pct}) title("Casewise GX use in PPSA" , ${title}) ///
       xtit("Average Monthly PPIA Notifications" ) ///
