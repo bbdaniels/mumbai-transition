@@ -12,7 +12,8 @@ tostring form re_9_b re_9_c re_10_c re_11_a re_12_a_4 med_f_2 med_f_3 med_b12_12
 replace re_1 = 1 if re_1 > 1
 
 save "${directory}/data/sp-private-2.dta" , replace
-//
+
+// Append
 
 use "${directory}/data/sp-private-1.dta"
   tostring form , replace
@@ -20,6 +21,10 @@ use "${directory}/data/sp-private-1.dta"
 qui append using "${directory}/data/sp-private-2.dta" , gen(wave)
   label def wave 0 "PPIA" 1 "Post-PPIA"
   label val wave wave
+
+// Cleaning
+
+lab var correct "Correct"
 
 hashdata using "${directory}/constructed/sp-private.dta" , reset replace
 

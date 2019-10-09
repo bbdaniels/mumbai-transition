@@ -6,6 +6,9 @@ global directory "/Users/bbdaniels/GitHub/mumbai/mumbai-transition"
 
 // Globals
 
+  // title
+  global title justification(left) color(black) span pos(11)
+
   // Options for -twoway- graphs
   global tw_opts ///
   	title(, justification(left) color(black) span pos(11)) ///
@@ -49,6 +52,6 @@ global directory "/Users/bbdaniels/GitHub/mumbai/mumbai-transition"
 
 // Part 3: Analysis
 
-  do "${directory}/code/analysis.do"
+*  do "${directory}/code/analysis.do"
 
 // Have a lovely day!
